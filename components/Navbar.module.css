@@ -1,0 +1,219 @@
+/* ── 전체 헤더 래퍼 — 통째로 sticky ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s;
+}
+.header.scrolled {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+
+/* ── 유틸리티 바 ── */
+.utilBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: #f5f5f7;
+  border-bottom: 1px solid #e8e8ed;
+  font-size: 13px;
+  color: #888;
+  overflow: hidden;
+  max-height: 52px;
+  opacity: 1;
+  transition:
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease,
+    padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.header.scrolled .utilBar {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.utilLeft { display: flex; gap: 20px; align-items: center; }
+.utilLeft span { font-size: 13px; }
+.utilLeft span strong { color: #333; font-weight: 600; }
+.utilRight { display: flex; align-items: center; }
+.utilRight a {
+  color: #777;
+  text-decoration: none;
+  padding: 0 12px;
+  border-right: 1px solid #ddd;
+  transition: color 0.12s;
+  font-size: 13px;
+  line-height: 1;
+}
+.utilRight a:last-child { border-right: none; }
+.utilRight a:hover { color: #E24B4A; }
+
+/* ── 메인 NAV ── */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 76px;
+  background: #fff;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.header.scrolled .nav { height: 62px; }
+
+/* 로고 */
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #0a0a0a;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+.logo:hover { transform: scale(1.04); }
+.logo span { color: #E24B4A; }
+
+/* 중앙 메뉴 */
+.menuList {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.menuItem {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.menuLabel {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 24px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.15s, transform 0.15s;
+}
+.menuLabel::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: #E24B4A;
+  transform: scaleX(0);
+  transition: transform 0.2s;
+  border-radius: 2px;
+}
+.menuItem:hover .menuLabel,
+.menuLabel:hover { color: #E24B4A; transform: scale(1.07); }
+.menuItem:hover .menuLabel::after { transform: scaleX(1); }
+
+/* 드롭다운 */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #e8e8ed;
+  border-radius: 14px;
+  padding: 10px 0;
+  min-width: 190px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+  z-index: 200;
+  animation: fadeDown 0.15s ease;
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.dropdownItem {
+  display: block;
+  padding: 12px 24px;
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s, padding-left 0.15s;
+}
+.dropdownItem:hover {
+  background: #f5f5f7;
+  color: #E24B4A;
+  padding-left: 30px;
+}
+
+/* 우측 아이콘 */
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.iconBtn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s, transform 0.15s;
+}
+.iconBtn:hover {
+  background: #f5f5f7;
+  color: #E24B4A;
+  transform: scale(1.15);
+}
+.cartWrap { position: relative; }
+.cartBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #E24B4A;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.navCta {
+  margin-left: 12px;
+  background: #E24B4A;
+  color: #fff;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+  white-space: nowrap;
+}
+.navCta:hover { background: #c73e3d; transform: scale(1.04); }
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .utilBar { display: none; }
+  .nav { padding: 0 20px; height: 56px; }
+  .menuList { display: none; }
+  .logo { font-size: 18px; }
+  .navCta { padding: 8px 16px; font-size: 14px; }
+}
